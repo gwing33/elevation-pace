@@ -1,6 +1,5 @@
 var React = require('react');
 var PropTypes = React.PropTypes;
-var Layout = require('./layout');
 
 var Error = React.createClass({
   propTypes: {
@@ -9,11 +8,10 @@ var Error = React.createClass({
   },
 
   render: function() {
-    console.log('error page');
-    return <Layout>
+    return <div>
       <h1>Error</h1>
       {this.props.message}
-    </Layout>;
+    </div>;
   }
 });
 

@@ -7,6 +7,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var React = require('react');
+var browserify = require('browserify-middleware');
+var reactify = require('reactify');
 
 var routes = require('./routes/index');
 
@@ -24,6 +26,14 @@ app.use(cookieParser());
 app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
+browserify.settings({
+  extensions: ['.jsx'],
+  transform: [reactify]
+});
+
+app.use('/js/build', browserify('./public/js'));
+app.get('/js/build/app.js', browserify('./public/js//app.jsx'));
+
 app.use('/', routes);
 
 // catch 404 and forward to error handler
@@ -39,6 +49,7 @@ app.use(function(req, res, next) {
 // will print stacktrace
 if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
+      console.log('err');
       res.status(err.status || 500);
 
       var Error = require('./components/error.jsx');
@@ -56,6 +67,7 @@ if (app.get('env') === 'development') {
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
+  console.log('err');
   res.status(err.status || 500);
 
   var Error = require('./components/error.jsx');

@@ -1,20 +1,21 @@
 var React = require('react');
 
 var Router = require('react-router');
+var Link = Router.Link;
 var RouteHandler = Router.RouteHandler;
 
 var Layout = React.createClass({
   render: function() {
-    return <html lang="en">
-      <head>
-        <title>Elevation Pace</title>
-        <link src='/css/main.css' />
-      </head>
-      <body>
-        <h1>Layout</h1>
-        {this.props.children}
-      </body>
-    </html>;
+    return <div>
+      <header>
+        <Link to="home">Home</Link>
+        <Link to="about">About</Link>
+      </header>
+      <h1>Layout</h1>
+      {this.props.children}
+
+      <script src="/js/build/app.js" />
+    </div>;
   }
 });
 
